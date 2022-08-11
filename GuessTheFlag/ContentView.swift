@@ -6,6 +6,19 @@
 //
 
 import SwiftUI
+struct FlagImage: View {
+    
+    var list: String
+    
+    var body: some View {
+        
+        Image(list)
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .shadow(radius: 5)
+        
+    }
+}
 
 struct ContentView: View {
     @State private var showingScore = false
@@ -36,16 +49,14 @@ struct ContentView: View {
                             .font(.largeTitle.weight(.semibold))
                         
                     }
+                
                     ForEach(0..<3) {
                         number in
                         Button {
                             flagTapped(number)
                             
                         } label: {
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(Capsule())
-                                .shadow(radius: 5)
+                            FlagImage(list: countries[number])
                             
                         }
                     }
@@ -98,7 +109,7 @@ struct ContentView: View {
         correctAnswer = Int.random(in: 0...2)
     }
     func reset() {
-        
+        askQuestion()
         scoreTitle = ""
         usersScore = 0
         turns = 0
